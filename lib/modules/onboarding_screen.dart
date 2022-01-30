@@ -57,7 +57,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             navigateAndFinish(context, LoginScreen(),);
           },child: Text(
             'Skip',
-          ),)
+          ),),
         ],
       ),
       body: Padding(
