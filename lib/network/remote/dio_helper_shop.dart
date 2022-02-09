@@ -12,7 +12,7 @@ class DioHelper
         headers:
         {
           'Content-Type' : 'application/json',
-          'lang' : 'en',
+          'lang' : 'ar',
         }
       ),
     );

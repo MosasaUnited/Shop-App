@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 void navigateTo(context, widget) => Navigator.push(context,
   MaterialPageRoute
     (builder:
-      (context) => widget,),
+      (context) => widget,)
 );
 
 void navigateAndFinish(context, widget,) =>
@@ -15,13 +15,13 @@ void navigateAndFinish(context, widget,) =>
 Widget defaultFormField({
   required TextEditingController controller,
   required TextInputType type,
-  Function? onSubmit,
-  Function? onChange,
+  Function(String)? onSubmit,
+  //Function? onChange,
   Function? onTap,
   bool isPassword = false,
-  required Function validate,
+  required String? Function(String?) validate,
   required String label,
-  required IconData ? prefix,
+  required IconData? prefix,
   IconData? suffix,
   Function? suffixPressed,
   bool isClickable = true,
@@ -31,22 +31,10 @@ Widget defaultFormField({
       keyboardType: type,
       obscureText: isPassword,
       enabled: isClickable,
-      onFieldSubmitted: (s)
-      {
-        onSubmit!(s);
-      },
-      onChanged: (s)
-      {
-        onChange!(s);
-      },
-      onTap: ()
-      {
-        onTap!();
-      },
-      validator: (s)
-      {
-        validate(s);
-      },
+      onFieldSubmitted: onSubmit,
+      //onChanged: onChange != null? onChange() : null,
+      onTap: onTap != null? onTap() : null,
+      validator: validate,
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: Icon(

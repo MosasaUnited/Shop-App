@@ -7,14 +7,16 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 
 class LoginScreen extends StatelessWidget {
 
-  var formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
+
   var emailController = TextEditingController();
+
   var passwordController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context)
   {
-
     return BlocProvider(
       create: (BuildContext context) => ShopLoginCubit(),
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
@@ -47,9 +49,9 @@ class LoginScreen extends StatelessWidget {
                         defaultFormField(
                           controller: emailController,
                           type: TextInputType.emailAddress,
-                          validate: (String value)
+                          validate: (value)
                           {
-                            if(value.isEmpty)
+                            if(value!.isEmpty)
                             {
                               return 'please enter your Email address';
                             }
@@ -63,37 +65,45 @@ class LoginScreen extends StatelessWidget {
                         defaultFormField(
                           controller: passwordController,
                           type: TextInputType.visiblePassword,
-                          validate: (String value)
-                          {
-                            if(value.isEmpty)
-                            {
-                              return 'the Password isn\'t correct';
+                          suffix: ShopLoginCubit.get(context).suffix,
+                          onSubmit: (value) {
+                            if (formKey.currentState!.validate()) {
+                              ShopLoginCubit.get(context).userLogin(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              );
+                            }
+                          },
+                          isPassword: ShopLoginCubit.get(context).isPassword,
+                          suffixPressed: () {
+                            ShopLoginCubit.get(context)
+                                .changePasswordVisibility();
+                          },
+                          validate: (value) {
+                            if (value!.isEmpty) {
+                              return 'password is too short';
                             }
                           },
                           label: 'Password',
-                          prefix: Icons.lock_outlined,
-                          suffix: Icons.visibility_outlined,
+                          prefix: Icons.lock_outline,
                         ),
                         SizedBox(
                           height: 30.0,
                         ),
                         ConditionalBuilder(
-                            condition: state is! ShopLoginLoading,
-                            builder: (context) => defaultButton(
-                            function: ()
-                            {
-                              if(formKey.currentState!.validate())
-                              {
+                          condition: state is! ShopLoginLoading,
+                          builder: (context) => defaultButton(
+                            function: () {
+                              if (formKey.currentState!.validate()) {
                                 ShopLoginCubit.get(context).userLogin(
-                                    email: emailController.text,
-                                    password: passwordController.text,
+                                  email: emailController.text,
+                                  password: passwordController.text,
                                 );
                               }
                             },
-                              text: 'Login',
-                              isUpperCase: true,
+                            text: 'login',
+                            isUpperCase: true,
                           ),
-
                           fallback: (context) =>
                               Center(child: CircularProgressIndicator()),
                         ),
