@@ -2,21 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/shared/components/components.dart';
 import '../registter_screen/register.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'cubit_loginscreen/shop_login_cubit.dart';
+import 'package:shop_app/modules/login_screen/cubit_loginscreen/shop_login_cubit.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 
 class LoginScreen extends StatelessWidget {
 
   final formKey = GlobalKey<FormState>();
 
-  var emailController = TextEditingController();
-
-  var passwordController = TextEditingController();
-
-
   @override
   Widget build(BuildContext context)
   {
+    var emailController = TextEditingController();
+
+    var passwordController = TextEditingController();
+
     return BlocProvider(
       create: (BuildContext context) => ShopLoginCubit(),
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
@@ -67,7 +66,8 @@ class LoginScreen extends StatelessWidget {
                           type: TextInputType.visiblePassword,
                           suffix: ShopLoginCubit.get(context).suffix,
                           onSubmit: (value) {
-                            if (formKey.currentState!.validate()) {
+                            if (formKey.currentState!.validate())
+                            {
                               ShopLoginCubit.get(context).userLogin(
                                 email: emailController.text,
                                 password: passwordController.text,
@@ -90,23 +90,23 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           height: 30.0,
                         ),
-                        ConditionalBuilder(
-                          condition: state is! ShopLoginLoading,
-                          builder: (context) => defaultButton(
-                            function: () {
-                              if (formKey.currentState!.validate()) {
-                                ShopLoginCubit.get(context).userLogin(
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                );
-                              }
-                            },
-                            text: 'login',
-                            isUpperCase: true,
+                          ConditionalBuilder(
+                            condition: state is! ShopLoginLoading,
+                            builder: (context) => defaultButton(
+                              function: () {
+                                if (formKey.currentState!.validate()) {
+                                  ShopLoginCubit.get(context).userLogin(
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                  );
+                                }
+                              },
+                              text: 'login',
+                              isUpperCase: true,
+                            ),
+                            fallback: (context) =>
+                                Center(child: CircularProgressIndicator()),
                           ),
-                          fallback: (context) =>
-                              Center(child: CircularProgressIndicator()),
-                        ),
                         SizedBox(
                           height: 15.0,
                         ),

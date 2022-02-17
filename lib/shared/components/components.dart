@@ -61,6 +61,7 @@ Widget defaultButton({
   bool isUpperCase = true,
   double radius = 3.0,
   required Function function,
+  Function? onTap,
   required String text,
 }) =>
     Container(

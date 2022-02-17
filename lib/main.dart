@@ -1,12 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:shop_app/shared/styles/themes.dart';
-
 import 'modules/onboarding_screen.dart';
+import 'network/remote/dio_helper_shop.dart';
 
 
 void main()
 {
+  DioHelper.init();
   runApp(MyApp());
 }
 
