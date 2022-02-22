@@ -4,7 +4,11 @@ abstract class ShopLoginStates {}
 
 class ShopLoginInitial extends ShopLoginStates {}
 class ShopLoginLoading extends ShopLoginStates {}
-class ShopLoginSuccess extends ShopLoginStates {}
+class ShopLoginSuccess extends ShopLoginStates {
+  final LoginModel loginUserModel;
+
+  ShopLoginSuccess(this.loginUserModel);
+}
 class ShopLoginError extends ShopLoginStates
 {
   final String error;
