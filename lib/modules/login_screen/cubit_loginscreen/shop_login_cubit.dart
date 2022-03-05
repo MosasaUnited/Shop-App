@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/network/remote/dio_helper_shop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shop_app/shared/network/end_points.dart';
+import 'package:shop_app/shared/network/remote/dio_helper_shop.dart';
 import '../../../models/login_model.dart';
-import '../../../network/end_points.dart';
 part 'shop_login_state.dart';
 
 

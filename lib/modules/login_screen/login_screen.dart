@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/modules/register_screen/register.dart';
 import 'package:shop_app/shared/components/components.dart';
-import '../registter_screen/register.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/modules/login_screen/cubit_loginscreen/shop_login_cubit.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
                 fontSize: 16.0,
               );
             }
-            else if (state.loginUserModel.status = false)
+            else
             {
               print(state.loginUserModel.message);
 
