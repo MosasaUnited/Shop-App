@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/modules/login_screen/cubit_loginscreen/shop_login_cubit.dart';
 import 'package:shop_app/modules/register_screen/register.dart';
 import 'package:shop_app/shared/components/components.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/modules/login_screen/cubit_loginscreen/shop_login_cubit.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -23,9 +23,9 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state){
           if(state is ShopLoginSuccess)
           {
-            if(state.loginUserModel.status)
-            {
+            if (state.loginUserModel.status) {
               print(state.loginUserModel.message);
+              print(state.loginUserModel.data!.token);
 
               Fluttertoast.showToast(
                 msg: state.loginUserModel.message!,
@@ -37,21 +37,20 @@ class LoginScreen extends StatelessWidget {
                 fontSize: 16.0,
               );
             }
-            else
-            {
-              print(state.loginUserModel.message);
-
-              Fluttertoast.showToast(
-                msg: state.loginUserModel.message!,
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                backgroundColor: Colors.red,
-                timeInSecForIosWeb: 5,
-                textColor: Colors.white,
-                fontSize: 16.0,
-              );
-            }
           }
+          else if(state is ShopLoginError)
+          {
+            Fluttertoast.showToast(
+              msg: 'برجاء التأكد من ادخال البيانات الصحيحة',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.red,
+              timeInSecForIosWeb: 5,
+              textColor: Colors.white,
+              fontSize: 16.0,
+            );
+          }
+
         },
         builder: (context,state){
           return Scaffold(
