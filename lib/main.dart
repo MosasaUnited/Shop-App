@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/modules/login_screen/login_screen.dart';
 import 'package:shop_app/shared/cubit/app_cubit.dart';
 import 'package:shop_app/shared/network/local/cache_helper.dart';
 import 'package:shop_app/shared/network/remote/dio_helper_shop.dart';
@@ -30,8 +31,8 @@ void main() async
 class MyApp extends StatelessWidget
 {
 
-  final bool? isDark;
-  final bool? onBoarding;
+  bool? isDark;
+  bool? onBoarding;
 
   MyApp({
     this.isDark,
@@ -62,8 +63,8 @@ class MyApp extends StatelessWidget
         theme: lighttheme,
         darkTheme: darktheme,
         themeMode:
-        AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-        home: OnBoardingScreen(),
+          AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
+        home: onBoarding! ? LoginScreen() :  OnBoardingScreen(),
         );
         },
     ),

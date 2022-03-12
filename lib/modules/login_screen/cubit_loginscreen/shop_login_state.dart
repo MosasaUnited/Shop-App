@@ -1,4 +1,4 @@
-part of 'shop_login_cubit.dart';
+import 'package:shop_app/models/login_model.dart';
 
 abstract class ShopLoginStates {}
 

@@ -6,3 +6,15 @@
       themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
       home: OnBoardingScreen(),
     );
+
+
+
+
+
+    else
+                {
+                  print(state.loginUserModel.message);
+                  showToast(
+                    text: state.loginUserModel.message!,
+                    state: ToastStates.ERROR,
+                  );
