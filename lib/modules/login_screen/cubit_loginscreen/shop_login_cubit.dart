@@ -14,7 +14,7 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
 
   static ShopLoginCubit get(context) => BlocProvider.of(context);
 
-  LoginModel? _loginModel;
+  LoginModel? loginModel;
 
   void userLogin({
   required String email,
@@ -30,9 +30,12 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
       },
     ).then((value) {
       print(value.data);
-      _loginModel = LoginModel.fromJson(value.data);
-      print(_loginModel!.data!.token);
-      emit(ShopLoginSuccess(_loginModel!));
+      loginModel = LoginModel.fromJson(value.data);
+      print(loginModel!.status);
+      print(loginModel!.message);
+      print(loginModel!.data!.token);
+
+      emit(ShopLoginSuccess(loginModel!));
     }).catchError((error) {
       print(error.toString());
       emit(ShopLoginError(error.toString()));

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/layout/home_layout.dart';
 import 'package:shop_app/modules/login_screen/cubit_loginscreen/shop_login_cubit.dart';
 import 'package:shop_app/modules/login_screen/cubit_loginscreen/shop_login_state.dart';
 import 'package:shop_app/modules/register_screen/register.dart';
 import 'package:shop_app/shared/components/components.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:shop_app/shared/network/local/cache_helper.dart';
 
 class LoginScreen extends StatelessWidget {
 
@@ -25,9 +27,15 @@ class LoginScreen extends StatelessWidget {
             if (state.loginUserModel.status) {
               print(state.loginUserModel.message);
               print(state.loginUserModel.data!.token);
-              showToast(
-                text: state.loginUserModel.message!,
-                state: ToastStates.SUCCESS,
+
+              CacheHelper.saveData(
+                  key: 'token',
+                  value: state.loginUserModel.data?.token,).then((value)
+              {
+                navigateAndFinish(
+                  context,
+                  ShopLayout(),);
+              }
               );
             }
             else
@@ -39,7 +47,6 @@ class LoginScreen extends StatelessWidget {
               );
             }
           }
-
         },
         builder: (context,state){
           return Scaffold(

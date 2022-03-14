@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/layout/home_layout.dart';
 import 'package:shop_app/modules/login_screen/login_screen.dart';
 import 'package:shop_app/shared/cubit/app_cubit.dart';
 import 'package:shop_app/shared/network/local/cache_helper.dart';
@@ -16,11 +17,24 @@ void main() async
 
   await CacheHelper.init();
   bool? isDark = CacheHelper.getData('isDark');
+
+  Widget? widget;
+
   bool? onBoarding = CacheHelper.getData('onBoarding');
+  String? token = CacheHelper.getData('token');
+
+  if(onBoarding != null)
+  {
+    if(token != null) widget = ShopLayout();
+    else widget = LoginScreen();
+  }else
+    {
+      widget = OnBoardingScreen();
+    }
 
   runApp(MyApp(
     isDark: isDark,
-    onBoarding: onBoarding,
+    startWidget: widget,
   ));
 
 
@@ -31,12 +45,12 @@ void main() async
 class MyApp extends StatelessWidget
 {
 
-  bool? isDark;
-  bool? onBoarding;
+  final bool? isDark;
+  final Widget? startWidget;
 
   MyApp({
     this.isDark,
-    this.onBoarding,
+    this.startWidget,
   });
 
   @override
@@ -64,7 +78,7 @@ class MyApp extends StatelessWidget
         darkTheme: darktheme,
         themeMode:
           AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-        home: onBoarding! ? LoginScreen() :  OnBoardingScreen(),
+        home: startWidget,
         );
         },
     ),
