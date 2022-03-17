@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/home_layout.dart';
 import 'package:shop_app/modules/login_screen/login_screen.dart';
 import 'package:shop_app/shared/cubit/app_cubit.dart';
+import 'package:shop_app/shared/cubit/shop_cubit.dart';
+import 'package:shop_app/shared/cubit/states.dart';
 import 'package:shop_app/shared/network/local/cache_helper.dart';
 import 'package:shop_app/shared/network/remote/dio_helper_shop.dart';
 import 'package:shop_app/shared/styles/themes.dart';
@@ -67,6 +69,9 @@ class MyApp extends StatelessWidget
         ),
         BlocProvider(
         create: (BuildContext context) => AppCubit(),
+        ),
+        BlocProvider(
+        create: (BuildContext context) => ShopCubit(),
         ),
         ],
         child: BlocConsumer<AppCubit, AppState>(

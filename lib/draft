@@ -1,20 +1,54 @@
- return MaterialApp
-      (
-      debugShowCheckedModeBanner: false,
-      theme: lighttheme,
-      darkTheme: darktheme,
-      themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-      home: OnBoardingScreen(),
-    );
+Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Salla',
+          ),
+        ),
+
+
+
+            bottomNavigationBar: BottomNavigationBar(
+                      onTap: (index)
+                      {
+                      cubit.changeBottom(index);
+                      },
+                      currentIndex: cubit.currentIndex,
+                      items: [
+                      BottomNavigationBarItem(
+                      icon: Icon(
+                        Icons.home,
+                      ),
+                        label:
+                          'Home',
+                      ),
+                      BottomNavigationBarItem(
+                      icon: Icon(
+                        Icons.apps,
+                      ),
+                         label:
+                          'Categories',
+                      ),
+                      BottomNavigationBarItem(
+                      icon: Icon(
+                        Icons.favorite,
+                      ),
+                        label:
+                          'Favorites',
+                      ),
+                      BottomNavigationBarItem(
+                      icon: Icon(
+                        Icons.settings,
+                      ),
+                       label:
+                        'Settings',
+                      ),
+                    ]
+                    )
 
 
 
 
 
-    else
-                {
-                  print(state.loginUserModel.message);
-                  showToast(
-                    text: state.loginUserModel.message!,
-                    state: ToastStates.ERROR,
-                  );
+
+
+                                        ],);,
