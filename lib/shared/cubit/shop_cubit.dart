@@ -8,7 +8,6 @@ import 'package:shop_app/shared/components/constants.dart';
 import 'package:shop_app/shared/cubit/states.dart';
 import 'package:shop_app/shared/network/end_points.dart';
 import 'package:shop_app/shared/network/remote/dio_helper_shop.dart';
-
 import '../../models/home_model.dart';
 
 
@@ -41,7 +40,10 @@ class ShopCubit extends Cubit<AppState> {
   {
     emit(AppLoadingHomeDataState());
 
-    DioHelper.getData(url: HOME).then((value)
+    DioHelper.getData(
+        url: HOME,
+        token: token,
+    ).then((value)
     {
       homeModel = HomeModel.fromJson(value.data);
 

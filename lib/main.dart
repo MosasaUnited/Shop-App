@@ -59,7 +59,8 @@ class MyApp extends StatelessWidget
   Widget build(BuildContext Context)
   {
     return MultiBlocProvider(
-        providers: [
+        providers:
+        [
 
           BlocProvider(
           create: (BuildContext context) => AppCubit()
@@ -67,11 +68,10 @@ class MyApp extends StatelessWidget
             fromShared: isDark,
         ),
         ),
-        BlocProvider(
-        create: (BuildContext context) => AppCubit(),
-        ),
-        BlocProvider(
-        create: (BuildContext context) => ShopCubit()..getHomeData(),
+          BlocProvider(
+        create: (BuildContext context)
+        => ShopCubit()
+          ..getHomeData(),
         ),
         ],
         child: BlocConsumer<AppCubit, AppState>(

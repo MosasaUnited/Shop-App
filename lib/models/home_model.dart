@@ -1,12 +1,12 @@
 class HomeModel
 {
   bool? status;
-  HomeModel? data;
+  HomeDataModel? data;
 
   HomeModel.fromJson(Map<String, dynamic> json)
   {
     status = json['status'];
-    data = json['status'];
+    data = HomeDataModel.fromJson(json['data']);
   }
 }
 
@@ -19,11 +19,11 @@ class HomeDataModel
   {
     json['banners'].forEach((element)
     {
-      banners.add(element);
+      banners.add(BannerModel.fromJson(element));
     });
     json['products'].forEach((element)
     {
-      products.add(element);
+      products.add(ProductModel.fromJson(element));
     });
 
   }

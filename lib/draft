@@ -50,5 +50,26 @@ Scaffold(
 
 
 
+                    BlocProvider(
+                            create: (BuildContext context) => AppCubit(),
+                            ),
+
+
+
+
+
+
 
                                         ],);,
+
+
+
+
+        Center(
+              child: Text(
+                'Products',
+                style: Theme.of(context).textTheme.bodyText1,
+
+              ),
+
+            );
