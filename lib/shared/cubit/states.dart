@@ -13,3 +13,7 @@ class AppLoadingHomeDataState extends AppState {}
 class AppSuccessHomeDataState extends AppState {}
 
 class AppErrorHomeDataState extends AppState {}
+
+class AppSuccessCategoriesState extends AppState {}
+
+class AppErrorCategoriesState extends AppState {}
