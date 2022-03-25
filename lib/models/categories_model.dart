@@ -21,9 +21,8 @@ class CategoriesDataModel
     currentPage = json['current_page'];
     json['data'].forEach((element)
     {
-      data!.add(DataModel.fromJson(json['data']));
+      data!.add(DataModel.fromJson(element));
     });
-    data = json['data'];
   }
 }
 

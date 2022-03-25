@@ -1,9 +1,9 @@
 import 'dart:ui';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/models/categories_model.dart';
 import 'package:shop_app/models/home_model.dart';
 import 'package:shop_app/shared/cubit/shop_cubit.dart';
 import 'package:shop_app/shared/cubit/states.dart';
@@ -19,8 +19,8 @@ class ProductsScreen extends StatelessWidget {
       builder: (context, state)
       {
         return ConditionalBuilder(
-          condition:  ShopCubit.get(context).homeModel != null,
-          builder:  (context) => productsBuilder(ShopCubit.get(context).homeModel!),
+          condition:  ShopCubit.get(context).homeModel != null && ShopCubit.get(context).categoriesModel != null,
+          builder:  (context) => productsBuilder(ShopCubit.get(context).homeModel!, ShopCubit.get(context).categoriesModel!),
           fallback: (context) => Center(child: CircularProgressIndicator(
           )) ,
         );
@@ -28,7 +28,7 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget productsBuilder(HomeModel model) => SingleChildScrollView(
+  Widget productsBuilder(HomeModel model, CategoriersModel categoriesModel) => SingleChildScrollView(
     physics: BouncingScrollPhysics(),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +57,8 @@ class ProductsScreen extends StatelessWidget {
             height: 10.0,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -69,18 +70,19 @@ class ProductsScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: 10.0,
+                  width: 20.0,
                 ),
                 Container(
                   height: 100.0,
                   child: ListView.separated(
                       physics: BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => buildCategorieItem(),
+                      itemBuilder: (context, index) =>
+                          buildCategorieItem(categoriesModel.data!.data![index]),
                       separatorBuilder: (context, index) => SizedBox(
-                        width: 10.0,
+                        width: 20.0,
                       ),
-                      itemCount: 10
+                      itemCount: categoriesModel.data!.data!.length
                   ),
                 ),
                 SizedBox(
@@ -110,7 +112,8 @@ class ProductsScreen extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 children: List.generate(
                     model.data!.products.length,
-                        (index) => buildGridProduct(model.data!.products[index]),
+                        (index) =>
+                            buildGridProduct(model.data!.products[index]),
 
                 ),
 
@@ -120,23 +123,21 @@ class ProductsScreen extends StatelessWidget {
     ),
   );
 
-  Widget buildCategorieItem() => Stack(
+  Widget buildCategorieItem(DataModel? model) => Stack(
     alignment: AlignmentDirectional.bottomCenter,
     children:
     [
       Image(
-        image: NetworkImage(
-            'https://student.valuxapps.com/storage/uploads/categories/16301438353uCFh.29118.jpg'
-        ),
+        image: NetworkImage(model!.image!),
         height: 100.0,
         width: 100.0,
         fit: BoxFit.cover,
       ),
       Container(
         color: Colors.black.withOpacity(.8),
-        width: double.infinity,
+        width: 100.0,
         child: Text(
-          'Electronics',
+          model.name!,
           textAlign: TextAlign.center,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
