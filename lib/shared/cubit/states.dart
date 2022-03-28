@@ -17,3 +17,7 @@ class AppErrorHomeDataState extends AppState {}
 class AppSuccessCategoriesState extends AppState {}
 
 class AppErrorCategoriesState extends AppState {}
+
+class AppSuccessChangeFavoritesState extends AppState {}
+
+class AppErrorChangeFavoritesState extends AppState {}

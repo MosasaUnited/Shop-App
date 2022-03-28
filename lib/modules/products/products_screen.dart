@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,7 @@ class ProductsScreen extends StatelessWidget {
       {
         return ConditionalBuilder(
           condition:  ShopCubit.get(context).homeModel != null && ShopCubit.get(context).categoriesModel != null,
-          builder:  (context) => productsBuilder(ShopCubit.get(context).homeModel!, ShopCubit.get(context).categoriesModel!),
+          builder:  (context) => productsBuilder(ShopCubit.get(context).homeModel!, ShopCubit.get(context).categoriesModel!, context),
           fallback: (context) => Center(child: CircularProgressIndicator(
           )) ,
         );
@@ -28,7 +27,8 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget productsBuilder(HomeModel model, CategoriersModel categoriesModel) => SingleChildScrollView(
+  Widget productsBuilder(HomeModel model, CategoriersModel categoriesModel, context) =>
+      SingleChildScrollView(
     physics: BouncingScrollPhysics(),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +113,7 @@ class ProductsScreen extends StatelessWidget {
                 children: List.generate(
                     model.data!.products.length,
                         (index) =>
-                            buildGridProduct(model.data!.products[index]),
+                            buildGridProduct(model.data!.products[index], context),
 
                 ),
 
@@ -149,7 +149,7 @@ class ProductsScreen extends StatelessWidget {
     ],
   );
 
-  Widget buildGridProduct(ProductModel model) => Container(
+  Widget buildGridProduct(ProductModel model, context) => Container(
     color: Colors.white,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -216,15 +216,22 @@ class ProductsScreen extends StatelessWidget {
                   ),
                   Spacer(),
                   IconButton(
-                    padding: EdgeInsets.zero,
-                    icon: Icon(
-                      Icons.favorite_border,
-                      size: 15.0,
-                    ),
                     onPressed: ()
                     {
-
+                      ShopCubit.get(context).changeFavorites(model.id!);
+                      print(model.id);
                     },
+                    padding: EdgeInsets.zero,
+                    icon: CircleAvatar(
+                      radius: 15.0,
+                      backgroundColor: ShopCubit.get(context).favorites[model.id]! ? defaultColor : Colors.grey ,
+                      child: Icon(
+                        Icons.favorite_border,
+                        size: 15.0,
+                        color: Colors.white,
+                      ),
+                    ),
+
 
                   ),
                 ],

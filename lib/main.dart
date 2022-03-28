@@ -24,6 +24,7 @@ void main() async
 
   bool? onBoarding = CacheHelper.getData('onBoarding');
   String? token = CacheHelper.getData('token');
+  print(token);
 
   if(onBoarding != null)
   {
