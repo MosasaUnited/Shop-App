@@ -98,7 +98,7 @@ class ShopCubit extends Cubit<AppState> {
   {
     favorites[productID] = !favorites[productID];
 
-    emit(AppSuccessChangeFavoritesState());
+    emit(AppChangeFavoritesState());
 
     DioHelper.postData(
         url: FAVORITES,
@@ -113,7 +113,7 @@ class ShopCubit extends Cubit<AppState> {
           {
             favorites[productID] = !favorites[productID];
           }
-          emit(AppSuccessChangeFavoritesState());
+          emit(AppSuccessChangeFavoritesState(changeFavoritesModel!));
         })
         .catchError((error)
         {

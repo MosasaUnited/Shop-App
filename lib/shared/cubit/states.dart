@@ -1,3 +1,5 @@
+import 'package:shop_app/models/change_favorites_model.dart';
+
 abstract class AppState {}
 
 class AppInitialState extends AppState {}
@@ -18,6 +20,13 @@ class AppSuccessCategoriesState extends AppState {}
 
 class AppErrorCategoriesState extends AppState {}
 
-class AppSuccessChangeFavoritesState extends AppState {}
+class AppChangeFavoritesState extends AppState {}
+
+class AppSuccessChangeFavoritesState extends AppState
+{
+  final ChangeFavoritesModel model;
+
+  AppSuccessChangeFavoritesState(this.model);
+}
 
 class AppErrorChangeFavoritesState extends AppState {}
