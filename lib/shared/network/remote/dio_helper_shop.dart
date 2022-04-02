@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 
-
 class DioHelper
 {
-  static Dio? dio;
+  static late Dio dio;
 
   static init(){
     print('DioHelper Initialized');
@@ -20,18 +19,18 @@ class DioHelper
     required String url,
     Map<String, dynamic>? query,
     Map<String, dynamic>? data,
-    String lang = 'en',
+    String lang = 'ar',
     String? token,
   }) async
   {
-    dio!.options.headers =
+    dio.options.headers =
     {
       'lang':lang,
-      'Authorization': token??'',
       'Content-Type': 'application/json',
+      'Authorization': '$token',
     };
 
-    return await dio!.get(
+    return await dio.get(
       url,
       queryParameters: query,
     );
@@ -41,18 +40,18 @@ class DioHelper
     required String url,
     Map<String, dynamic>? query,
     required Map<String, dynamic>? data,
-    String lang = 'en',
+    String lang = 'ar',
     String? token,
   }) async
   {
-    dio!.options.headers =
+    dio.options.headers =
     {
       'lang': lang,
-      'Authorization': token ?? '',
       'Content-Type': 'application/json',
+      'Authorization': '$token',
     };
 
-    return await dio!.post(
+    return await dio.post(
       url,
       queryParameters: query,
       data: data,

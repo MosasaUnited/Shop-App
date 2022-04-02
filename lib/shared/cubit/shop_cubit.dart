@@ -37,7 +37,7 @@ class ShopCubit extends Cubit<AppState> {
 
   HomeModel? homeModel;
 
-  Map<int, bool> favorites = {};
+  Map<dynamic, dynamic> favorites = {};
 
   void getHomeData()
   {
@@ -94,21 +94,33 @@ class ShopCubit extends Cubit<AppState> {
 
   ChangeFavoritesModel? changeFavoritesModel;
 
-  void changeFavorites(int productId)
+  void changeFavorites(int? productID)
   {
+    favorites[productID] = !favorites[productID];
+
+    emit(AppSuccessChangeFavoritesState());
+
     DioHelper.postData(
         url: FAVORITES,
-        data: {'product_id' : productId},
+        data: {'product_id' : productID},
         token: token,
         ).then((value) 
         {
           changeFavoritesModel = ChangeFavoritesModel.fromJson(value.data);
           print(value.data);
+
+          if(changeFavoritesModel!.status == false)
+          {
+            favorites[productID] = !favorites[productID];
+          }
           emit(AppSuccessChangeFavoritesState());
         })
         .catchError((error)
         {
+          favorites[productID] = !favorites[productID];
+
           emit(AppErrorChangeFavoritesState());
+          print(error.toString());
         });
   }
 }
