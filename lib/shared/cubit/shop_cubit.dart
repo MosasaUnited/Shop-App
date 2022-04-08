@@ -10,6 +10,7 @@ import 'package:shop_app/shared/components/constants.dart';
 import 'package:shop_app/shared/cubit/states.dart';
 import 'package:shop_app/shared/network/end_points.dart';
 import 'package:shop_app/shared/network/remote/dio_helper_shop.dart';
+import '../../models/favorites_model.dart';
 import '../../models/home_model.dart';
 
 
@@ -112,6 +113,9 @@ class ShopCubit extends Cubit<AppState> {
           if(changeFavoritesModel!.status == false)
           {
             favorites[productID] = !favorites[productID];
+          }else
+          {
+            getFavorites();
           }
           emit(AppSuccessChangeFavoritesState(changeFavoritesModel!));
         })
@@ -122,5 +126,27 @@ class ShopCubit extends Cubit<AppState> {
           emit(AppErrorChangeFavoritesState());
           print(error.toString());
         });
+  }
+
+  FavoritesModel? favoritesModel;
+
+  void getFavorites()
+  {
+    emit(AppLoadingGetFavoritesState());
+
+    DioHelper.getData(
+      url: FAVORITES,
+      token: token,
+    ).then((value)
+    {
+      favoritesModel = FavoritesModel.fromJson(value.data);
+      printFullText(value.data.toString());
+
+      emit(AppSuccessGetFavoritesState());
+    }).catchError((error)
+    {
+      printFullText(error.toString());
+      emit(AppErrorGetFavoritesState());
+    });
   }
 }

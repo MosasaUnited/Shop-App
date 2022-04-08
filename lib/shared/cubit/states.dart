@@ -30,3 +30,11 @@ class AppSuccessChangeFavoritesState extends AppState
 }
 
 class AppErrorChangeFavoritesState extends AppState {}
+
+class AppSuccessGetFavoritesState extends AppState {}
+
+class AppErrorGetFavoritesState extends AppState {}
+
+class AppLoadingGetFavoritesState extends AppState {}
+
+
