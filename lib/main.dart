@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget
   });
 
   @override
-  Widget build(BuildContext Context)
+  Widget build(BuildContext context)
   {
     return MultiBlocProvider(
         providers:
@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget
           BlocProvider(
         create: (BuildContext context)
         => ShopCubit()
-          ..getHomeData()..getCategories()..getFavorites(),
+          ..getHomeData()..getCategories()..getFavorites()..getUserData(),
         ),
         ],
         child: BlocConsumer<AppCubit, AppState>(

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/models/categories_model.dart';
 import 'package:shop_app/models/change_favorites_model.dart';
+import 'package:shop_app/models/login_model.dart';
 import 'package:shop_app/modules/categories/categories_screen.dart';
 import 'package:shop_app/modules/favorites/favorites_screen.dart';
 import 'package:shop_app/modules/products/products_screen.dart';
@@ -51,7 +52,7 @@ class ShopCubit extends Cubit<AppState> {
     {
       homeModel = HomeModel.fromJson(value.data);
 
-      printFullText(homeModel.toString());
+      //printFullText(homeModel.toString());
 
       homeModel?.data?.products.forEach((element)
       {
@@ -60,7 +61,7 @@ class ShopCubit extends Cubit<AppState> {
         });
       });
 
-      print(favorites.toString());
+      //print(favorites.toString());
 
       emit(AppSuccessHomeDataState());
     }).catchError((error)
@@ -83,7 +84,7 @@ class ShopCubit extends Cubit<AppState> {
     {
       categoriesModel = CategoriersModel.fromJson(value.data);
 
-      printFullText(homeModel.toString());
+      //printFullText(homeModel.toString());
 
       emit(AppSuccessCategoriesState());
     }).catchError((error)
@@ -140,13 +141,35 @@ class ShopCubit extends Cubit<AppState> {
     ).then((value)
     {
       favoritesModel = FavoritesModel.fromJson(value.data);
-      printFullText(value.data.toString());
+      //printFullText(value.data.toString());
 
       emit(AppSuccessGetFavoritesState());
     }).catchError((error)
     {
       printFullText(error.toString());
       emit(AppErrorGetFavoritesState());
+    });
+  }
+
+  LoginModel? userModel;
+
+  void getUserData()
+  {
+    emit(AppLoadingGetUserDataState());
+
+    DioHelper.getData(
+      url: PROFILE,
+      token: token,
+    ).then((value)
+    {
+      userModel = LoginModel.fromJson(value.data);
+      printFullText(userModel!.data!.name!);
+
+      emit(AppSuccessGetUserDataState(userModel!));
+    }).catchError((error)
+    {
+      printFullText(error.toString());
+      emit(AppErrorGetUserDataState());
     });
   }
 }
