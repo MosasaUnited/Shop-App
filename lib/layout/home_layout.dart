@@ -5,7 +5,6 @@ import 'package:shop_app/shared/components/components.dart';
 import 'package:shop_app/shared/cubit/shop_cubit.dart';
 import 'package:shop_app/shared/cubit/states.dart';
 
-
 class ShopLayout extends StatelessWidget {
   const ShopLayout({Key? key}) : super(key: key);
 
@@ -27,7 +26,10 @@ class ShopLayout extends StatelessWidget {
                   Icons.search,
                 ),
                 onPressed: () {
-                  navigateTo(context, SearchScreen(),);
+                  navigateTo(
+                    context,
+                    SearchScreen(),
+                  );
                 },
               ),
             ],
@@ -70,4 +72,3 @@ class ShopLayout extends StatelessWidget {
     );
   }
 }
-

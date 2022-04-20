@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+void navigateTo(context, widget) => Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => widget,
+    ));
 
-void navigateTo(context, widget) => Navigator.push(context,
-  MaterialPageRoute
-    (builder:
-      (context) => widget,)
-);
-
-void navigateAndFinish(context, widget,) =>
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+void navigateAndFinish(
+  context,
+  widget,
+) =>
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
         builder: (context) => widget,
-    ), (Route<dynamic>route) => false, );
+      ),
+      (Route<dynamic> route) => false,
+    );
 
 Widget defaultFormField({
   required TextEditingController controller,
@@ -34,7 +40,7 @@ Widget defaultFormField({
       enabled: isClickable,
       onFieldSubmitted: onSubmit,
       //onChanged: onChange != null? onChange() : null,
-      onTap: onTap != null? onTap() : null,
+      onTap: onTap != null ? onTap() : null,
       validator: validate,
       decoration: InputDecoration(
         labelText: label,
@@ -43,14 +49,13 @@ Widget defaultFormField({
         ),
         suffixIcon: suffix != null
             ? IconButton(
-          onPressed: ()
-          {
-            suffixPressed!();
-          },
-          icon: Icon(
-            suffix,
-          ),
-        )
+                onPressed: () {
+                  suffixPressed!();
+                },
+                icon: Icon(
+                  suffix,
+                ),
+              )
             : null,
         border: OutlineInputBorder(),
       ),
@@ -69,8 +74,7 @@ Widget defaultButton({
       width: width,
       height: 50.0,
       child: MaterialButton(
-        onPressed: ()
-        {
+        onPressed: () {
           function();
         },
         child: Text(
@@ -99,40 +103,36 @@ void showToast({
       backgroundColor: chooseToastColor(state),
       timeInSecForIosWeb: 5,
       textColor: Colors.white,
-      fontSize: 16.0,);
+      fontSize: 16.0,
+    );
 
 //enum
-enum ToastStates {SUCCESS, ERROR, WARNING}
+enum ToastStates { SUCCESS, ERROR, WARNING }
 
-Color? chooseToastColor(ToastStates state)
-{
+Color? chooseToastColor(ToastStates state) {
   Color? color;
 
-  switch(state)
-  {
+  switch (state) {
     case ToastStates.SUCCESS:
-      color =  Colors.green;
+      color = Colors.green;
       break;
     case ToastStates.ERROR:
-      color =  Colors.red;
+      color = Colors.red;
       break;
     case ToastStates.WARNING:
-      color =  Colors.amber;
+      color = Colors.amber;
       break;
   }
   return color;
 }
 
-
 Widget myDivider() => Padding(
-  padding: const EdgeInsetsDirectional.only(
-    start: 20.0,
-  ),
-  child: Container(
-    width: double.infinity,
-    height: 1.0,
-    color: Colors.grey[300],
-  ),
-);
-
-
+      padding: const EdgeInsetsDirectional.only(
+        start: 20.0,
+      ),
+      child: Container(
+        width: double.infinity,
+        height: 1.0,
+        color: Colors.grey[300],
+      ),
+    );

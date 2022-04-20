@@ -11,9 +11,7 @@ import 'package:shop_app/shared/network/remote/dio_helper_shop.dart';
 import 'package:shop_app/shared/styles/themes.dart';
 import 'modules/onboarding_screen.dart';
 
-
-void main() async
-{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   DioHelper.init();
@@ -31,24 +29,21 @@ void main() async
   {
     if(token != null) widget = ShopLayout();
     else widget = LoginScreen();
-  }else
-    {
-      widget = OnBoardingScreen();
-    }
+  }
+  else
+  {
+    widget = OnBoardingScreen();
+  }
 
   runApp(MyApp(
     isDark: isDark,
     startWidget: widget,
   ));
-
-
 }
 
 // Class myApp
 
-class MyApp extends StatelessWidget
-{
-
+class MyApp extends StatelessWidget {
   final bool? isDark;
   final Widget? startWidget;
 
@@ -58,43 +53,36 @@ class MyApp extends StatelessWidget
   });
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers:
-        [
-
-          BlocProvider(
+      providers: [
+        BlocProvider(
           create: (BuildContext context) => AppCubit()
             ..changeAppMode(
-            fromShared: isDark,
+              fromShared: isDark,
+            ),
         ),
+        BlocProvider(
+          create: (BuildContext context) => ShopCubit()
+            ..getHomeData()
+            ..getCategories()
+            ..getFavorites()
+            ..getUserData(),
         ),
-          BlocProvider(
-        create: (BuildContext context)
-        => ShopCubit()
-          ..getHomeData()..getCategories()..getFavorites()..getUserData(),
-        ),
-        ],
-        child: BlocConsumer<AppCubit, AppState>(
+      ],
+      child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {},
         builder: (context, state) {
-        return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: lighttheme,
-        darkTheme: darktheme,
-        themeMode:
-          AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-        home: startWidget,
-        );
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: lighttheme,
+            darkTheme: darktheme,
+            themeMode:
+                AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
+            home: startWidget,
+          );
         },
-    ),
+      ),
     );
-
   }
-
-
-
-
-
 }
