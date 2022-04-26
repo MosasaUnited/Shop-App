@@ -6,6 +6,7 @@ import 'package:shop_app/modules/register_screen/register.dart';
 import 'package:shop_app/shared/components/components.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:shop_app/shared/components/constants.dart';
 import 'package:shop_app/shared/network/local/cache_helper.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -32,6 +33,7 @@ class LoginScreen extends StatelessWidget {
                   key: 'token',
                   value: state.loginUserModel.data?.token,).then((value)
               {
+                token = state.loginUserModel.data!.token;
                 navigateAndFinish(
                   context,
                   ShopLayout(),);
