@@ -67,6 +67,16 @@ class SettingsScreen extends StatelessWidget {
                   label: 'Phone',
                   prefix: Icons.phone,
                 ),
+                SizedBox
+                  (
+                  height: 20.0,
+                ),
+                defaultButton(
+                  function: () {
+                    signOut(context);
+                  },
+                  text: 'Update',
+                ),
                 SizedBox(
                   height: 20.0,
                 ),

@@ -49,4 +49,10 @@ class AppErrorGetUserDataState extends AppState {}
 
 class AppLoadingGetUserDataState extends AppState {}
 
+class AppLoadingUpdateProfileState extends AppState {}
+
+class AppSuccessUpdateProfileState extends AppState {}
+
+class AppErrorUpdateProfileState extends AppState {}
+
 
