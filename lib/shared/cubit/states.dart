@@ -51,7 +51,12 @@ class AppLoadingGetUserDataState extends AppState {}
 
 class AppLoadingUpdateProfileState extends AppState {}
 
-class AppSuccessUpdateProfileState extends AppState {}
+class AppSuccessUpdateProfileState extends AppState
+{
+  final LoginModel loginModel;
+
+  AppSuccessUpdateProfileState(this.loginModel);
+}
 
 class AppErrorUpdateProfileState extends AppState {}
 

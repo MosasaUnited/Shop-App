@@ -7,6 +7,7 @@ import 'package:shop_app/shared/cubit/shop_cubit.dart';
 import 'package:shop_app/shared/cubit/states.dart';
 
 class SettingsScreen extends StatelessWidget {
+  var formKey = GlobalKey<FormState>();
   var nameController = TextEditingController();
   var emailController = TextEditingController();
   var phoneController = TextEditingController();
@@ -26,67 +27,84 @@ class SettingsScreen extends StatelessWidget {
           condition: ShopCubit.get(context).userModel != null,
           builder: (context) => Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                defaultFormField(
-                  controller: nameController,
-                  type: TextInputType.name,
-                  validate: (String? value) {
-                    if (value!.isEmpty) {
-                      return 'Name can\'t be Empty';
-                    }
-                  },
-                  label: 'Name',
-                  prefix: Icons.person,
+            child: Form(
+              key: formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    if(state is AppLoadingUpdateProfileState)
+                    LinearProgressIndicator(),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    defaultFormField(
+                      controller: nameController,
+                      type: TextInputType.name,
+                      validate: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'Name can\'t be Empty';
+                        }
+                      },
+                      label: 'Name',
+                      prefix: Icons.person,
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    defaultFormField(
+                      controller: emailController,
+                      type: TextInputType.emailAddress,
+                      validate: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'Email can\'t be Empty';
+                        }
+                      },
+                      label: 'E-mail',
+                      prefix: Icons.email,
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    defaultFormField(
+                      controller: phoneController,
+                      type: TextInputType.phone,
+                      validate: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'Phone Number can\'t be Empty';
+                        }
+                      },
+                      label: 'Phone',
+                      prefix: Icons.phone,
+                    ),
+                    SizedBox
+                      (
+                      height: 20.0,
+                    ),
+                    defaultButton(
+                      function: () {
+                        if(formKey.currentState!.validate())
+                          {
+                            ShopCubit.get(context).updateUserData(
+                              name: nameController.text,
+                              email: emailController.text,
+                              phone: phoneController.text,
+                            );
+                          }
+                      },
+                      text: 'Update',
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    defaultButton(
+                      function: () {
+                        signOut(context);
+                      },
+                      text: 'Logout',
+                    )
+                  ],
                 ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                defaultFormField(
-                  controller: emailController,
-                  type: TextInputType.emailAddress,
-                  validate: (String? value) {
-                    if (value!.isEmpty) {
-                      return 'Email can\'t be Empty';
-                    }
-                  },
-                  label: 'E-mail',
-                  prefix: Icons.email,
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                defaultFormField(
-                  controller: phoneController,
-                  type: TextInputType.phone,
-                  validate: (String? value) {
-                    if (value!.isEmpty) {
-                      return 'Phone Number can\'t be Empty';
-                    }
-                  },
-                  label: 'Phone',
-                  prefix: Icons.phone,
-                ),
-                SizedBox
-                  (
-                  height: 20.0,
-                ),
-                defaultButton(
-                  function: () {
-                    signOut(context);
-                  },
-                  text: 'Update',
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                defaultButton(
-                  function: () {
-                    signOut(context);
-                  },
-                  text: 'Logout',
-                )
-              ],
+              ),
             ),
           ),
           fallback: (context) => Center(child: CircularProgressIndicator()),
