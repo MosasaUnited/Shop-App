@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/layout/home_layout.dart';
@@ -9,6 +10,7 @@ import 'package:shop_app/shared/cubit/states.dart';
 import 'package:shop_app/shared/network/local/cache_helper.dart';
 import 'package:shop_app/shared/network/remote/dio_helper_shop.dart';
 import 'package:shop_app/shared/styles/themes.dart';
+import 'package:splash_screen_view/SplashScreenView.dart';
 import 'modules/onboarding_screen.dart';
 
 void main() async {
@@ -79,7 +81,26 @@ class MyApp extends StatelessWidget {
             darkTheme: darktheme,
             themeMode:
                 AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home: startWidget,
+            home: SplashScreenView(
+              navigateRoute: startWidget,
+              duration: 5000,
+              imageSize: 130,
+              // you must add image path first on pubspec.yaml
+              imageSrc: "assets/images/splash_screen_2.png",
+              text: "Line Shop",
+              textType: TextType.ColorizeAnimationText,
+              textStyle: TextStyle(
+                fontSize: 50.0,
+                fontStyle: FontStyle.italic,
+              ),
+              colors: [
+                Colors.purple,
+                Colors.blue,
+                Colors.yellow,
+                Colors.red,
+              ],
+              backgroundColor: Colors.yellow,
+            ),
           );
         },
       ),
