@@ -2,12 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/modules/search/search_screen.dart';
 import 'package:shop_app/shared/components/components.dart';
+import 'package:shop_app/shared/cubit/app_cubit.dart';
 import 'package:shop_app/shared/cubit/shop_cubit.dart';
 import 'package:shop_app/shared/cubit/states.dart';
 
-class ShopLayout extends StatelessWidget {
+class ShopLayout extends StatefulWidget {
   const ShopLayout({Key? key}) : super(key: key);
 
+
+
+  @override
+  State<ShopLayout> createState() => _ShopLayoutState();
+}
+
+class _ShopLayoutState extends State<ShopLayout> {
+
+  bool _value = true;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, AppState>(
@@ -18,9 +28,25 @@ class ShopLayout extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Shopping',
+              'Line Shop',
             ),
             actions: [
+              //Dark Mood Switch Button
+              Transform.scale(
+                scale: 1.2,
+                child: Switch.adaptive(
+                    activeThumbImage: AssetImage('assets/images/night-mode.png'),
+                    inactiveThumbImage: AssetImage('assets/images/sun_light_mood.png'),
+                    value: _value,
+                    onChanged: (bool value)
+                    {
+                      setState(() {
+                        _value = value;
+                        AppCubit.get(context).changeAppMode();
+                      });
+                    },
+                    ),
+              ),
               IconButton(
                 icon: Icon(
                   Icons.search,

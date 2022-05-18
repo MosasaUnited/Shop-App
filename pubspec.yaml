@@ -82,6 +82,8 @@ flutter:
   assets:
     - assets/images/onBoarding1.png
     - assets/images/splash_screen_2.png
+    - assets/images/night-mode.png
+    - assets/images/sun_light_mood.png
 
   fonts:
      - family: Jannah

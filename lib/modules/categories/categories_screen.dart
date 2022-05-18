@@ -6,7 +6,6 @@ import 'package:shop_app/models/categories_model.dart';
 import 'package:shop_app/shared/cubit/app_cubit.dart';
 import 'package:shop_app/shared/cubit/shop_cubit.dart';
 import 'package:shop_app/shared/cubit/states.dart';
-
 import '../../shared/components/components.dart';
 
 class CategoriesScreen extends StatelessWidget {
